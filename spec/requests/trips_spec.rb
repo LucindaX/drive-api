@@ -53,7 +53,7 @@ RSpec.describe 'Trips API', type: :request do
       before { post '/trips', params: valid_attributes }
 
       it 'creates a trip and returns 201 status code' do
-        expect(json).to eq([12.21312, 15.99229])
+        expect(json['start_latlng']).to eq([12.21312, 15.99229])
         expect(response).to have_http_status(201)
       end
 
