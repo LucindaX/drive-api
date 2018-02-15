@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Trips API', type: :request do
   
-  let!(:trips) { create_list(:trips, 10) }
+  let!(:trips) { create_list(:trip, 10) }
   let(:trip_id) { trips.first.id }
 
   describe 'GET /trips' do
@@ -33,7 +33,7 @@ RSpec.describe 'Trips API', type: :request do
 
     context 'when record doesnt exist' do
         
-      let(:todo_id) { 100 }
+      let(:trip_id) { 100 }
 
       it 'returns code 404 and not found message' do
         expect(response).to have_http_status(404)
@@ -53,7 +53,7 @@ RSpec.describe 'Trips API', type: :request do
       before { post '/trips', params: valid_attributes }
 
       it 'creates a trip and returns 201 status code' do
-        expect(json['start_latlng']).to eq([12.21312, 15.99229])
+        expect(json).to eq([12.21312, 15.99229])
         expect(response).to have_http_status(201)
       end
 
@@ -74,7 +74,7 @@ RSpec.describe 'Trips API', type: :request do
   describe 'PUT /trips/:id' do
     let(:valid_attributes) { { start_latlng: [ 12.22, 13.22 ] } }
     context 'when record exists' do
-      before { put "/trips#{trip_id}", params: valid_attributes }
+      before { put "/trips/#{trip_id}", params: valid_attributes }
       it 'updates the record and have status code 204' do
         expect(response.body).to be_empty
         expect(response).to have_http_status(204)
