@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Trips API', type: :request do
   
+  let(:completed_trip) { create(:trip, :completed) }
   let!(:trips) { create_list(:trip, 10) }
   let(:trip_id) { trips.first.id }
 
@@ -80,6 +81,14 @@ RSpec.describe 'Trips API', type: :request do
         expect(response).to have_http_status(204)
       end
     end
+    context 'when trip completed' do
+      before { put "/trips/#{completed_trip.id}", params: { status: "ongoing" } }
+      it 'rejects status change once completed' do
+        expect(response).to have_http_status(422)
+        expect(response.body).to match(/Trip completed/)
+      end
+    end
+
   end
 
   # Test DELETE /trips/:id
