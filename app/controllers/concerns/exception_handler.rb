@@ -1,7 +1,5 @@
 module ExceptionHandler
   extend ActiveSupport::Concern
-
-  class CompletedTrip < StandardError; end
   
   included do
     
@@ -13,7 +11,7 @@ module ExceptionHandler
       json_response({ message: e.message }, :unprocessable_entity)
     end
 
-    rescue_from ExceptionHandler::CompletedTrip, with: :four_twenty_two
+    rescue_from Errors::CompletedTrip, with: :four_twenty_two
 
   end
 

@@ -46,7 +46,7 @@ class CheckpointsController < ApplicationController
   end
 
   def check_trip_status
-    raise ExceptionHandler::CompletedTrip, 'Trip completed' if @trip.completed?
+    raise Errors::CompletedTrip if @trip.completed?
   end
 
 
