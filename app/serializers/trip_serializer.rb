@@ -6,5 +6,5 @@ class TripSerializer < ActiveModel::Serializer
   def end_latlng
     [object.end_lat, object.end_lng]
   end
-  #has_many :checkpoints
+  has_many :checkpoints
 end
