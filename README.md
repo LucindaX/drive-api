@@ -1,24 +1,19 @@
-# README
+# Drive API
+A sample API for creating trips and adding route information
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Installation
+Clone repo on local machine and step into directory and run
 
-Things you may want to cover:
+```
+$ bundle install
+```
 
-* Ruby version
+## Tests
+Basic model and Request specs have been implemented. Run tests using `rspec` command in root directory
 
-* System dependencies
+## Reference
+The API created is based on two models, Trip and Checkpoint.
+Basically, a Trip is created with predetermined start and end locations, donated by [lat,lng] coordinates, this assumes that a starting "pickup" location must be given and the end location is left to business model needs. Once a Trip has been created, checkpoints can be created on this Trip where each checkpoint donates [lat,lng] with a timestamp. These checkpoints essentially form the route that the trip covers from start to end locations. Once a Trip status is updated from "ongoing" to "completed" no checkpoints can be further added and the trip status is frozen and cannot be switched to "ongoing" again.
 
-* Configuration
+The request specs can provide a more technical overview of the complete API implementation.
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
