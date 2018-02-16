@@ -14,6 +14,7 @@ class CheckpointsController < ApplicationController
 
   # POST /trips/:trip_id/checkpoints
   def create
+    check_trip_status
     @trip.checkpoints.create!(checkpoint_params)
     json_response(@trip, :created)
   end
@@ -42,6 +43,10 @@ class CheckpointsController < ApplicationController
 
   def set_checkpoint
     @checkpoint ||= @trip.checkpoints.find_by!(id: params[:id]) if @trip
+  end
+
+  def check_trip_status
+    raise ExceptionHandler::CompletedTrip, 'Trip completed' if @trip.completed?
   end
 
 
