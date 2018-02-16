@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'Checkpoints API' do
 
-  let!(:trip) { create(:trip) }
+  let!(:trip) { create(:trip, :ongoing) }
+  let!(:completed_trip) { create(:trip, :completed) }
   let!(:checkpoints) { create_list(:checkpoint, 20, trip_id: trip.id) }
   let(:trip_id) { trip.id }
   let(:id) { checkpoints.first.id }
@@ -71,6 +72,14 @@ RSpec.describe 'Checkpoints API' do
       it 'returns invalid message and 422 status code' do
         expect(response.body).to match(/Validation failed/)
         expect(response).to have_http_status(422)
+      end
+    end
+
+    context 'when trip is already completed' do
+      before { post "/trips/#{completed_trip.id}/checkpoints", params: valid_attributes }
+      it 'returns trip completed message and 422 status code' do
+        expect(response).to have_http_status(422)
+        expect(response.body).to match(/Trip completed/)
       end
     end
 
