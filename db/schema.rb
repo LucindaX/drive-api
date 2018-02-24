@@ -10,26 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180215171849) do
+ActiveRecord::Schema.define(version: 20180224220953) do
 
   create_table "checkpoints", force: :cascade do |t|
     t.integer  "trip_id"
-    t.float    "lat"
-    t.float    "lng"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.decimal  "lat",        precision: 10, scale: 6
+    t.decimal  "lng",        precision: 10, scale: 6
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.index ["trip_id"], name: "index_checkpoints_on_trip_id"
   end
 
   create_table "trips", force: :cascade do |t|
-    t.float    "start_lat"
-    t.float    "start_lng"
-    t.float    "end_lat"
+    t.decimal  "start_lat",  precision: 10, scale: 6
+    t.decimal  "start_lng",  precision: 10, scale: 6
+    t.decimal  "end_lat",    precision: 10, scale: 6
     t.float    "end_lng"
-    t.integer  "status",     default: 0
+    t.integer  "status",                              default: 0
     t.datetime "end_time"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                                      null: false
+    t.datetime "updated_at",                                      null: false
   end
 
 end
