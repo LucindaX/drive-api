@@ -38,11 +38,11 @@ class CheckpointsController < ApplicationController
   end
 
   def set_trip
-    @trip ||= Trip.find(params[:trip_id])
+    @trip = Trip.find(params[:trip_id])
   end
 
   def set_checkpoint
-    @checkpoint ||= @trip.checkpoints.find_by!(id: params[:id]) if @trip
+    @checkpoint = @trip.checkpoints.find_by!(id: params[:id]) if @trip
   end
 
   def check_trip_status
